@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Sidang Akhir - Fadhila Aridinda Zahrani</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-hot: #ff1e8e;
+    --pink-bright: #ff5cb3;
+    --pink-light: #ffc2e2;
+    --pink-pale: #fff0f8;
+    --gold: #ffd54a;
+    --white: #ffffff;
+    --text-dark: #6b3a52;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+
+  .slides{
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    
+  }
+  .slide{
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 30px 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  #s1{ background: linear-gradient(160deg, #ffd6ec 0%, #ff9ecf 45%, #ff5cb3 100%); }
+  #s2{ background: linear-gradient(160deg, #fff0f8 0%, #ffd6ec 100%); }
+  #s3{ background: linear-gradient(160deg, #ff9ecf 0%, #ff5cb3 60%, #d4006b 100%); }
+  #s4{ background: linear-gradient(160deg, #fff0f8 0%, #ffc2e2 100%); }
+  #s5{ background: linear-gradient(160deg, #ff5cb3 0%, #d4006b 100%); }
+
+  .dot-nav{
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 50;
+  }
+  .dot{
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    border: 2px solid var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .dot.active{
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.35);
+    transform: scale(1.2);
+  }
+
+  .sparkle{
+    position: absolute;
+    color: var(--gold);
+    font-size: 20px;
+    animation: twinkle 2.2s infinite ease-in-out;
+    pointer-events: none;
+  }
+  @keyframes twinkle{
+    0%,100% { opacity: 0.2; transform: scale(0.7) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+  }
+
+  /* ===== Foto Samping Kiri & Kanan (tiap slide) — DIPERBESAR ===== */
+  .side-photo{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: var(--white);
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(212,0,107,0.35);
+    border: 4px solid var(--pink-light);
+    pointer-events: none;
+  }
+  .side-photo img{
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
+    background: linear-gradient(135deg, #ffe1f0, #ffc2e2);
+  }
+  .side-photo.left{ left: 25px; transform: translateY(-50%) rotate(-6deg); }
+  .side-photo.right{ right: 65px; transform: translateY(-50%) rotate(6deg); }
+  .side-photo .mini-heart{
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    font-size: 24px;
+  }
+
+  /* Sembunyikan di layar sedang, biar tidak nabrak konten tengah */
+  @media (max-width: 1150px){
+    .side-photo{ display: none; }
+  }
+
+  /* ===== Foto Polaroid Hero & Profil ===== */
+  .polaroid{
+    background: var(--white);
+    padding: 14px 14px 34px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(212,0,107,0.35);
+    display: inline-block;
+    transform: rotate(-4deg);
+    border: 3px solid var(--pink-light);
+    position: relative;
+  }
+  .polaroid img{
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    background: linear-gradient(135deg, #ffe1f0, #ffc2e2);
+  }
+  .polaroid .cap{
+    font-family: 'Pacifico', cursive;
+    color: var(--pink-hot);
+    font-size: 15px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .polaroid .crown-mini{
+    position: absolute;
+    top: -16px;
+    right: -12px;
+    font-size: 26px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+  }
+
+  #s1 .polaroid{ margin-bottom: 18px; }
+
+  .profil-photo{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--pink-hot);
+    box-shadow: 0 10px 25px rgba(255,30,142,0.35);
+    margin: 0 auto 16px;
+    display: block;
+    background: linear-gradient(135deg, #ffe1f0, #ffc2e2);
+  }
+
+  #s1 .content{ animation: popIn 1s cubic-bezier(.17,.89,.32,1.28); }
+  @keyframes popIn{
+    0%{ transform: scale(0.7) translateY(30px); opacity:0; }
+    100%{ transform: scale(1) translateY(0); opacity:1; }
+  }
+  .crown{ font-size: 40px; margin-bottom: 6px; }
+  .ribbon{
+    display:inline-block;
+    background: var(--white);
+    color: var(--pink-hot);
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  h1.brand{
+    font-family: 'Pacifico', cursive;
+    font-size: 42px;
+    color: var(--white);
+    text-shadow: 3px 3px 0 rgba(212,0,107,0.4);
+  }
+  h2.subtitle{
+    font-family: 'Pacifico', cursive;
+    font-size: 24px;
+    color: #fff0f8;
+    margin-top: 6px;
+  }
+  .nama-hero{
+    font-family: 'Pacifico', cursive;
+    font-size: 26px;
+    color: var(--white);
+    margin-top: 16px;
+    text-shadow: 2px 2px 0 rgba(212,0,107,0.3);
+  }
+  .scroll-hint{
+    position: absolute;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    color: var(--white);
+    font-size: 13px;
+    letter-spacing: 2px;
+    animation: bounce 1.6s infinite;
+  }
+  @keyframes bounce{
+    0%,100%{ transform: translate(-50%,0); }
+    50%{ transform: translate(-50%,8px); }
+  }
+
+  .card{
+    background: var(--white);
+    border-radius: 30px;
+    padding: 40px 32px;
+    max-width: 520px;
+    box-shadow: 0 25px 60px rgba(255,30,142,0.35);
+    border: 5px solid var(--pink-light);
+  }
+  .icon-badge{
+    width: 60px; height: 60px;
+    background: var(--pink-hot);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 28px;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 20px rgba(255,30,142,0.4);
+    border: 4px solid var(--white);
+  }
+  .eyebrow{
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--pink-hot);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h3.title-slide{
+    font-family: 'Pacifico', cursive;
+    font-size: 30px;
+    color: #d4006b;
+    margin-bottom: 14px;
+  }
+  .divider{
+    width: 70px; height: 4px;
+    background: linear-gradient(90deg, var(--pink-hot), var(--gold), var(--pink-hot));
+    margin: 8px auto 18px;
+    border-radius: 10px;
+  }
+  p.desc{
+    color: var(--text-dark);
+    font-size: 14.5px;
+    line-height: 1.85;
+  }
+  .jurusan-tag{
+    display:inline-block;
+    background: var(--pink-pale);
+    color: var(--pink-hot);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 7px 20px;
+    border-radius: 30px;
+    border: 2px dashed var(--pink-bright);
+    margin-top: 14px;
+  }
+
+  .timeline{
+    max-width: 480px;
+    text-align: left;
+  }
+  .timeline-item{
+    background: rgba(255,255,255,0.95);
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    display:flex;
+    gap: 14px;
+    align-items:flex-start;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .timeline-item .emoji{ font-size: 22px; }
+  .timeline-item .ti-title{ font-weight: 700; color:#d4006b; font-size:14px; }
+  .timeline-item .ti-desc{ font-size: 13px; color: var(--text-dark); margin-top:2px; }
+
+  .icons-row{ font-size: 26px; letter-spacing: 12px; margin-top: 18px; }
+  .btn-confetti{
+    margin-top: 26px;
+    background: linear-gradient(135deg, var(--white), #fff0f8);
+    color: var(--pink-hot);
+    border: none;
+    padding: 14px 34px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease;
+  }
+  .btn-confetti:hover{ transform: translateY(-3px) scale(1.03); }
+  .btn-confetti:active{ transform: translateY(0) scale(0.97); }
+  .signature{
+    margin-top: 20px;
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+    color: var(--white);
+  }
+  h3.title-white{
+    font-family: 'Pacifico', cursive;
+    font-size: 32px;
+    color: var(--white);
+    text-shadow: 2px 2px 0 rgba(212,0,107,0.4);
+    margin-bottom: 14px;
+  }
+  h3.title-white2{
+    font-family: 'Pacifico', cursive;
+    font-size: 13px;
+    color: var(--white);
+    text-shadow: 2px 2px 0 rgba(212,0,107,0.4);
+    margin-bottom: 14px;
+  }
+  p.desc-white{
+    color: #fff0f8;
+    font-size: 14.5px;
+    line-height: 1.85;
+    max-width: 480px;
+  }
+
+  canvas#confetti-canvas{
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    pointer-events:none;
+    z-index: 999;
+  }
+
+  @media (max-width: 480px){
+    h1.brand{ font-size: 30px; }
+    .card{ padding: 30px 22px; }
+    h3.title-slide{ font-size: 24px; }
+    .polaroid img{ width: 150px; height: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div class="dot-nav" id="dotNav">
+  <div class="dot active" data-target="s1"></div>
+  <div class="dot" data-target="s2"></div>
+  <div class="dot" data-target="s3"></div>
+  <div class="dot" data-target="s4"></div>
+  <div class="dot" data-target="s5"></div>
+</div>
+
+<div class="slides" id="slides">
+
+  <!-- SLIDE 1: HERO -->
+  <section class="slide" id="s1">
+    <div class="side-photo left">
+      <img src="fadhillaImg/IMG-20250210-WA0030.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+    <div class="side-photo right">
+      <img src="fadhillaImg/IMG-20250129-WA0002.jpg" alt="Foto Fadhila Aridinda Zahrani">
+      <span class="mini-heart">💖</span>
+    </div>
+
+    <div class="content">
+      <div class="polaroid">
+        <span class="crown-mini">👑</span>
+        <img src="fadhillaImg/IMG-20250129-WA0007.jpg" alt="Foto Fadhila Aridinda Zahrani">
+        <div class="cap">Dhila 💖</div>
+      </div>
+      <div class="crown">✨</div>
+      <span class="ribbon">Sidang Akhir</span>
+      <h1 class="brand">Selamat &amp; Sukses!</h1>
+      <h2 class="subtitle">Kamu Berhasil, Ya Neng!</h2>
+      <div class="nama-hero">Fadhila Arininda Azzahra</div>
+    </div>
+    <div class="scroll-hint"></div>
+  </section>
+
+  <!-- SLIDE 2: PROFIL -->
+  <section class="slide" id="s2">
+    <div class="side-photo left">
+      <img src="fadhillaImg/IMG-20250203-WA0011.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+    <div class="side-photo right">
+      <img src="fadhillaImg/IMG-20250131-WA0072.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+
+    <div class="card">
+      <img class="profil-photo" src="fadhillaImg/IMG_20250124_215400_352.jpg" alt="Foto Fadhila Aridinda Zahrani">
+      <div class="eyebrow">Sarjana Keperawatan</div>
+      <h3 class="title-slide">Fadhila Aridinda Zahrani</h3>
+      <div class="divider"></div>
+      <p class="desc">
+        Selamat atas kelulusanmu sebagai Sarjana Keperawatan. Aku tahu perjalanan hingga titik ini dipenuhi dengan usaha, pengorbanan,
+        dan doa. Hari ini menjadi bukti bahwa semua kerja kerasmu telah membuahkan hasil. Semoga langkahmu setelah ini selalu dimudahkan,
+        menjadi perawat yang penuh empati dan profesional, serta terus membawa kebaikan bagi setiap orang yang kamu bantu. Selamat atas pencapaianmu.
+      </p>
+      <span class="jurusan-tag">S.Kep — Sarjana Keperawatan</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: PERJALANAN -->
+  <section class="slide" id="s3">
+    <div class="side-photo left">
+      <img src="fadhillaImg/IMG-20250716-WA0029.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+    <div class="side-photo right">
+      <img src="fadhillaImg/IMG-20250205-WA0010.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+
+    <div class="timeline">
+      <div class="eyebrow" style="color:#fff; text-align:center; margin-bottom:14px;">PERJALANAN MENUJU HARI INI</div>
+      <div class="timeline-item">
+        <span class="emoji">📚</span>
+        <div>
+          <div class="ti-title">Begadang & Belajar</div>
+          <div class="ti-desc">Malam-malam panjang demi memahami setiap materi keperawatan.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="emoji">📝</span>
+        <div>
+          <div class="ti-title">Revisi Tanpa Henti</div>
+          <div class="ti-desc">Bab demi bab direvisi dengan sabar sampai benar-benar matang.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="emoji">💪</span>
+        <div>
+          <div class="ti-title">Deg-degan Menuju Sidang</div>
+          <div class="ti-desc">Rasa gugup dilawan dengan persiapan dan doa yang tak putus.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="emoji">🎓</span>
+        <div>
+          <div class="ti-title">Hari Kemenangan</div>
+          <div class="ti-desc">Semua kerja keras akhirnya berbuah manis di hari ini.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: PESAN -->
+  <section class="slide" id="s4">
+    <div class="side-photo left">
+      <img src="fadhillaImg/IMG-20250209-WA0014.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+    <div class="side-photo right">
+      <img src="fadhillaImg/IMG-20250331-WA0023.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+
+    <div class="card">
+      <div class="icon-badge">💌</div>
+      <div class="eyebrow">Pesan Untukmu</div>
+      <h3 class="title-slide">Dear, Neng Dhila...</h3>
+      <div class="divider"></div>
+      <p class="desc">
+        Selamat ya! 🎀 Akhirnya perjuangan panjangmu <strong>berbuah manis</strong>.
+        Kamu udah buktiin kalau kamu emang secantik dan sehebat itu —
+        pantang menyerah dan selalu tampil maksimal di setiap tantangan.
+        Semoga ilmu yang kamu dapat selama di kuliah bisa bermanfaat ya, keren udah
+        <strong>S.Kep</strong>! Dunia keperawatan siap kedatangan calon
+        perawat hebat yang penuh empati kayak kamu. Proud of you, Neng! 💗
+      </p>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: PENUTUP -->
+  <section class="slide" id="s5">
+    <div class="side-photo left">
+      <img src="fadhillaImg/IMG-20250210-WA0014.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+    <div class="side-photo right">
+      <img src="fadhillaImg/IMG_20250124_215408_414.jpg" alt="Foto Fadhila Aridinda Zahrani">
+    </div>
+
+    <div class="content">
+      <h3 class="title-white">Congratulations, ya Neng👩‍⚕️</h3>
+      <h3 class="title-white2"> Semoga langkah selanjutnya sebagai perawat penuh dengan keberkahan,
+            kesempatan, dan kebahagiaan. Selamat menempuh babak baru hidupmu!</h3>
+      <!-- <p class="desc-white">
+            Semoga langkah selanjutnya sebagai perawat penuh dengan keberkahan,
+            kesempatan, dan kebahagiaan. Selamat menempuh babak baru hidupmu!
+      </p> -->
+      <div class="icons-row">👑 💄 💅 🎀 💖</div>
+      <div class="signature">— Dari Engineer & Entrepreneur Sukses Dunia Akhirat(Hutomo Aji Sasono) 🩷</div>
+      <button class="btn-confetti" onclick="letsCelebrate()">🎉 Rayakan Kelulusan!</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const sparkleSymbols = ["✨","⭐","💖","🎀"];
+  document.querySelectorAll('.slide').forEach(slide=>{
+    for(let i=0;i<6;i++){
+      const s = document.createElement("div");
+      s.className = "sparkle";
+      s.textContent = sparkleSymbols[Math.floor(Math.random()*sparkleSymbols.length)];
+      s.style.left = Math.random()*90 + "%";
+      s.style.top = Math.random()*90 + "%";
+      s.style.animationDelay = (Math.random()*3) + "s";
+      s.style.fontSize = (14 + Math.random()*14) + "px";
+      slide.appendChild(s);
+    }
+  });
+
+  const slidesContainer = document.getElementById('slides');
+  const slideEls = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  dots.forEach(dot=>{
+    dot.addEventListener('click', ()=>{
+      const target = document.getElementById(dot.dataset.target);
+      target.scrollIntoView({ behavior:'smooth' });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        dots.forEach(d=>d.classList.remove('active'));
+        document.querySelector(`.dot[data-target="${entry.target.id}"]`).classList.add('active');
+      }
+    });
+  }, { threshold: 0.6, root: slidesContainer });
+
+  slideEls.forEach(s=> observer.observe(s));
+
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener("resize", ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  let confettiPieces = [];
+  const colors = ["#ff1e8e","#ff5cb3","#ffc2e2","#ffd54a","#ffffff"];
+
+  function createConfetti(){
+    confettiPieces = [];
+    for(let i=0;i<150;i++){
+      confettiPieces.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height - canvas.height,
+        w: 6 + Math.random()*8,
+        h: 10 + Math.random()*8,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        speed: 2 + Math.random()*4,
+        drift: Math.random()*2 - 1,
+        rotation: Math.random()*360,
+        rotSpeed: Math.random()*10 - 5
+      });
+    }
+  }
+
+  let animId;
+  function animateConfetti(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    let stillFalling = false;
+    confettiPieces.forEach(p=>{
+      p.y += p.speed;
+      p.x += p.drift;
+      p.rotation += p.rotSpeed;
+      if(p.y < canvas.height + 20) stillFalling = true;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation * Math.PI/180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+
+    if(stillFalling){
+      animId = requestAnimationFrame(animateConfetti);
+    } else {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+  }
+
+  function letsCelebrate(){
+    cancelAnimationFrame(animId);
+    createConfetti();
+    animateConfetti();
+  }
+</script>
+
+</body>
+</html>
